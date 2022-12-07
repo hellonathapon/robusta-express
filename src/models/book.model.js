@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
-    bID: String,
     title: String,
-    genres: String,
+    genre: String,
     author: String,
-    published_date: String,
+    publisher: String,
     ISBN: Number,
 });
 

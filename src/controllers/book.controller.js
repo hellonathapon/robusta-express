@@ -12,12 +12,7 @@ const getAllBooks = async (req, res) => {
 }
 
 const getBookById = async (req, res) => {
-
-    const { id } = req.param;
-    if(!id) {
-        res.status(400);
-        return;
-    }
+    const { id } = req.params;
 
     try {
         const book = await Book.findById(id);

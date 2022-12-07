@@ -45,7 +45,7 @@ const transports = [
     }),
 
     // file to all
-    new winston.transports.File({ filename: 'combined.log' }),
+    new winston.transports.File({ filename: 'logs/combined.log' }),
 ];
 
 const logger = winston.createLogger({
