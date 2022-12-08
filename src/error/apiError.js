@@ -15,6 +15,10 @@ class ApiError {
     static notFound(msg) {
         return new ApiError(404, msg);
     }
+
+    static tooManyRequests(msg) {
+        return new ApiError(429, msg);
+    }
 }
 
 module.exports = ApiError;
