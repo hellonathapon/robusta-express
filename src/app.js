@@ -4,6 +4,7 @@ const port = process.env.PORT || 5000;
 const logger = require("./utils/logger");
 const morganMiddleware = require("./middlewares/morgan.middleware");
 const mongoose = require("mongoose");
+const errorHandler = require("./utils/errorHandler");
 require("dotenv").config();
 
 // Database connection
@@ -20,5 +21,8 @@ app.use(morganMiddleware);
 
 app.use("/api/books", require("./routes/book.route"));
 
+
+// Error handler
+app.use(errorHandler);
 
 app.listen(port, () => logger.info(`🚀 Server is running on port ${port}`));
