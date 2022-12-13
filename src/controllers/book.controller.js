@@ -6,6 +6,7 @@ const logger = require("../utils/logger");
 const getAllBooks = async (req, res, next) => {
     try {
         const books = await Book.find();
+        console.log(books)
         res.status(200).json(books);
     }catch(err) {
         next(err);
