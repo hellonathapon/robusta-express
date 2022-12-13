@@ -1,7 +1,8 @@
-const mysql = require("mysql2"); // for more efficience performance consider using redis
-const { RateLimiterMySQL } = require("rate-limiter-flexible");
-const logger = require("../utils/logger");
-require("dotenv").config();
+import mysql from "mysql2"; // for more efficience performance consider using redis
+import { RateLimiterMySQL } from "rate-limiter-flexible";
+import logger from "../utils/logger";
+import env from "dotenv";
+env.config();
 
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD } = process.env;
 
@@ -18,9 +19,9 @@ const opts = {
     duration: 1, // per second(s)
 }
 
-const ready = (err) => {
+const ready = (err: Error | undefined) => {
     if (err) {
-     logger.error(err);
+      logger.error(err);
     } else {
       logger.info("🛡️ Rate limiter is ready!")
     }
@@ -28,4 +29,4 @@ const ready = (err) => {
 
 const rateLimiter = new RateLimiterMySQL(opts, ready);
 
-module.exports = rateLimiter;
+export default rateLimiter;

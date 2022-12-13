@@ -1,16 +1,17 @@
-const http = require("http");
-const app = require("./app");
-const mongoose = require("mongoose");
+import http from "http";
+import app from "./app";
+import mongoose from "mongoose";
+import logger from "./utils/logger";
+import env from "dotenv";
 const port = process.env.PORT || 5000;
-const logger = require("./utils/logger");
-require("dotenv").config();
+env.config();
 
 app.set("port", port);
 const server = http.createServer(app);
 
+
 // Database connection
-const dbString = process.env.MONGODB_URI;
-mongoose.connect(dbString, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.MONGODB_URI!)
 .then(() => {
     logger.info(`✅ Database connected`)
     server.listen(port);

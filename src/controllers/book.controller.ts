@@ -1,19 +1,18 @@
-const mongoose = require("mongoose");
-const ApiError = require("../error/apiError");
-const Book = require("../models/book.model");
-const logger = require("../utils/logger");
+import { RequestHandler } from "express";
+import ApiError from "../error/apiError";
+import Book from "../models/book.model";
+import logger from "../utils/logger";
 
-const getAllBooks = async (req, res, next) => {
+const getAllBooks: RequestHandler = async (req, res, next) => {
     try {
         const books = await Book.find();
-        console.log(books)
         res.status(200).json(books);
     }catch(err) {
         next(err);
     }
 }
 
-const getBookById = async (req, res, next) => {
+const getBookById: RequestHandler = async (req, res, next) => {
     const { id } = req.params;
 
     try {
@@ -24,7 +23,7 @@ const getBookById = async (req, res, next) => {
     }
 }
 
-const insertNewBook = async (req, res, next) => {
+const insertNewBook: RequestHandler = async (req, res, next) => {
     
     const { title, genre, author, publisher, ISBN } = req.body;
 
@@ -43,14 +42,14 @@ const insertNewBook = async (req, res, next) => {
 }
 
 
-const deleteBook = async (req, res, next) => {
+const deleteBook: RequestHandler = async (req, res, next) => {
 
     const { id } = req.params;
 
     // 1: no param id
     // TODO: regex id to scope the range of error.
     if(!id) {
-        next(Api.badRequest("Invalid credentials!"));
+        next(ApiError.badRequest("Invalid credentials!"));
         return;
     }
 
@@ -73,7 +72,7 @@ const deleteBook = async (req, res, next) => {
 
 }
 
-module.exports = {
+export {
     getAllBooks,
     getBookById,
     insertNewBook,

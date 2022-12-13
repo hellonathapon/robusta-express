@@ -1,15 +1,18 @@
-const mongoose = require("mongoose");
-const request = require("supertest");
-const app = require("../app");
-require("dotenv").config();
+import mongoose from "mongoose";
+import request from "supertest";
+import app from "../app";
+import env from "dotenv";
+env.config();
+
+const dbString = process.env.MONGODB_URI;
 
 beforeEach(async() => {
-    await mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+    await mongoose.connect(dbString!);
 });
 
 afterEach(async() => {
     await mongoose.connection.close();
-})
+});
 
 
 describe("GET: /api/books/", () => {
@@ -26,4 +29,4 @@ describe("GET: /api/books/:id", () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.title).toBe("Salt: A World History");
     })
-})
+});
